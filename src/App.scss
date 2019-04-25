@@ -135,15 +135,17 @@ $breakpoint-xl: 1560px;
   }
 }
 
-.card{  
-  $hover-transition: .4s;
+.card{    
+  $hover-transition: .4s;  
   @include elevation-2;
   transition: $hover-transition;  
   display: block;
-  position: relative;
+  position: relative;  
   &__img{
-    height: 140px;   
-    background: center/cover no-repeat;    
+    height: 140px;       
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
   &__content{
     padding: 29px 35px 35px;
@@ -195,4 +197,27 @@ $breakpoint-xl: 1560px;
       opacity: 1;
     }
   }
+}
+
+//animations
+.dialog-enter {
+  opacity: 0.01;
+  transform: scale(1.1);
+}
+
+.dialog-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 300ms;
+}
+
+.dialog-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dialog-exit-active {
+  opacity: 0.01;
+  transform: scale(1.1);
+  transition: all 300ms;
 }

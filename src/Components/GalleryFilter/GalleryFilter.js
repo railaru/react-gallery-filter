@@ -1,105 +1,26 @@
 import React, { Component } from 'react'
-import Card from './Card'
-import uuid from 'uuid'
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Card                 from './Card'
+import Checkbox             from '@material-ui/core/Checkbox';
+import FormControlLabel     from '@material-ui/core/FormControlLabel';
+import gallery_items        from '../../gallery_items'
+
+let   amountOfItems          = 6
+const amountOfItemsIncrement = 12
 
 export class GalleryFilter extends Component {
 
   constructor() {
     super()
-
-    this.state = {
+        
+    this.state = {      
       all: true,
       courses: false,
       video: false,
-      galleryItems: [
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-      ],
-
+      galleryItems: gallery_items.slice(0, amountOfItems)
     }
   }
 
-  componentDidMount() {
+  handleAccordions() {
     const accordionToggler = document.querySelectorAll('.accordion__top')
 
     accordionToggler.forEach((toggler) => {
@@ -118,6 +39,26 @@ export class GalleryFilter extends Component {
       }
     })
   }
+
+  handleLazyLoad() {
+            
+
+    window.addEventListener("wheel", () => {
+      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { //reached bottom of the page
+                
+        amountOfItems = amountOfItems + amountOfItemsIncrement        
+        
+          this.setState({ galleryItems: gallery_items.slice(0, amountOfItems) });                                        
+      }
+    })
+  }
+
+  componentDidMount() {
+    this.handleAccordions()
+    this.handleLazyLoad()
+  }
+
+  
   
   handleChange = name => event => {
     this.setState({ [name]: event.target.checked });
@@ -201,10 +142,11 @@ export class GalleryFilter extends Component {
           </div>
         </div>
         <div className='gallery-filter__right'>
-          {
+          {            
             this.state.galleryItems.map(item => {
               if ((this.state.courses && item.type === 'course') || this.state.all) {
                 return (
+                  
                   <Card
                     key={item.id}
                     link={item.link}
@@ -212,9 +154,11 @@ export class GalleryFilter extends Component {
                     type={item.type}
                     title={item.title}
                     description={item.description}
+                    pose={this.state.courses ? 'visible' : 'hidden'}
                   />
                 )
               }
+              
               if ((this.state.video && item.type === 'video') || this.state.all) {
                 return (
                   <Card
@@ -224,6 +168,7 @@ export class GalleryFilter extends Component {
                     type={item.type}
                     title={item.title}
                     description={item.description}
+                    pose={this.state.video ? 'visible' : 'hidden'}
                   />
                 )
               }
