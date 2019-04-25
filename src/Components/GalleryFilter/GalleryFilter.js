@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
-import Card                 from './Card'
-import Checkbox             from '@material-ui/core/Checkbox';
-import FormControlLabel     from '@material-ui/core/FormControlLabel';
-import gallery_items        from '../../gallery_items'
+import Card from './Card'
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Loader from './Loader'
 
-let   amountOfItems          = 6
-const amountOfItemsIncrement = 12
+import gallery_items from '../../gallery_items'
+
+let amountOfItems = 9
+const amountOfItemsIncrement = 6
 
 export class GalleryFilter extends Component {
 
   constructor() {
     super()
-        
-    this.state = {      
+
+    this.state = {
+      isLoading: true,
       all: true,
       courses: false,
       video: false,
@@ -40,16 +43,50 @@ export class GalleryFilter extends Component {
     })
   }
 
+
+  onImagesLoaded(container, event) {
+    var images = container.getElementsByTagName("img");
+    var loaded = images.length;
+    for (var i = 0; i < images.length; i++) {
+      if (images[i].complete) {
+        loaded--;
+      }
+      else {
+        // eslint-disable-next-line
+        images[i].onload = () => {
+          loaded--;
+          if (loaded === 0) {
+            event();
+          }
+        };
+      }
+      if (loaded === 0) {
+        event();
+      }
+    }
+  }
+
+
   handleLazyLoad() {
-            
+
+    this.onImagesLoaded(document.querySelector('.container'), () => {      
+      this.setState({ isLoading: false });
+    });
 
     window.addEventListener("wheel", () => {
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { //reached bottom of the page
-                
-        amountOfItems = amountOfItems + amountOfItemsIncrement        
-        
-          this.setState({ galleryItems: gallery_items.slice(0, amountOfItems) });                                        
-      }
+
+      this.setState({ isLoading: true });
+      this.onImagesLoaded(document.querySelector('.container'), () => {        
+        this.setState({ isLoading: false });
+      });      
+      if (!this.state.isLoading)
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { //reached bottom of the page
+
+          amountOfItems = amountOfItems + amountOfItemsIncrement
+
+          this.setState({ galleryItems: gallery_items.slice(0, amountOfItems) });         
+        }
+
     })
   }
 
@@ -58,15 +95,15 @@ export class GalleryFilter extends Component {
     this.handleLazyLoad()
   }
 
-  
-  
+
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.checked });
-    
-    this.setState({ all: false });    
+    this.setState({ all: false });
   };
 
   render() {
+
     return (
       <div className='gallery-filter'>
         <div className='gallery-filter__left'>
@@ -142,11 +179,11 @@ export class GalleryFilter extends Component {
           </div>
         </div>
         <div className='gallery-filter__right'>
-          {            
+          {
             this.state.galleryItems.map(item => {
               if ((this.state.courses && item.type === 'course') || this.state.all) {
                 return (
-                  
+
                   <Card
                     key={item.id}
                     link={item.link}
@@ -158,7 +195,7 @@ export class GalleryFilter extends Component {
                   />
                 )
               }
-              
+
               if ((this.state.video && item.type === 'video') || this.state.all) {
                 return (
                   <Card
@@ -187,7 +224,13 @@ export class GalleryFilter extends Component {
 
               return null
             }
-            )}
+            )
+
+          }
+          {
+            this.state.isLoading &&
+              <Loader/>
+          }
         </div>
       </div>
     )
