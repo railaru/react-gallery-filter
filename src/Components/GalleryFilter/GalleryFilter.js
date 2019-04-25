@@ -76,9 +76,11 @@ export class GalleryFilter extends Component {
     window.addEventListener("wheel", () => {
 
       this.setState({ isLoading: true });
+      
       this.onImagesLoaded(document.querySelector('.container'), () => {        
         this.setState({ isLoading: false });
       });      
+
       if (!this.state.isLoading)
         if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { //reached bottom of the page
 
