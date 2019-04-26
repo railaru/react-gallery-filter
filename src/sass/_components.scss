@@ -1,5 +1,27 @@
+//start content type tabs
+.content-type-tabs{
+  padding-bottom: 20px;
+}
+//end content type tabs
 
-
+//start back-to-top-toggler
+.back-to-top-toggler{
+  display: none;
+  @media (min-width: $breakpoint-xl){
+    display: block;
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);  
+    padding: 10px;    
+    transition: $hover-transition;    
+    &:hover{
+      transition: $hover-transition;          
+      @include elevation-2;
+    }
+  }  
+}
+//end back-to-top-toggler
 
 //components
 .gallery-filter{
@@ -14,7 +36,11 @@
     }
       &__left{
         &__title{
-          padding-bottom: 25px;
+          padding-bottom: 25px;          
+          padding-top: 20px;
+          &:first-of-type{
+            padding-top: 0;
+          }                             
         }        
       }
       &__right{
@@ -145,9 +171,17 @@
     transition: $hover-transition;  
     display: block;
     position: relative;
+    &--list-item{
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      margin-bottom: 20px;
+    }
     &__img{
       height: 140px;   
       overflow: hidden;
+      &--list-item{
+        height: 168px;
+      }
       img{
         transition: $hover-transition;
         width: 100%;
@@ -158,6 +192,10 @@
     }
     &__content{
       padding: 29px 35px 35px;
+      &--list-item{
+        padding: 0;
+        margin: 20px;
+      }
     }
     &__type{
       font-size: 12px;
