@@ -1,12 +1,15 @@
-    import React, { Component } from 'react'
+import React, { Component } from 'react'
+import PlaceholderImg from '../../img/placeholderImg.png'
 
 export class Card extends Component {
   render() {
     return (
         <a href={this.props.link} className="card">        
-        <div className='card__img'>
-          <img src={this.props.img} alt='' />
+
+        <div data-href={this.props.img} className="card__img progressive replace">
+            <img src={PlaceholderImg} className='preview' alt="cardImage" />
         </div>
+
         <div className="card__content">
           <div className="card__type">{this.props.type}</div>
           <div className="card__title">

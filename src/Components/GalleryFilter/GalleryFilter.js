@@ -7,8 +7,8 @@ import Loader from "./Loader";
 
 import gallery_items from "../../gallery_items";
 
-let amountOfItems = 9;
-const amountOfItemsIncrement = 3;
+let   amountOfItems          = 9;
+const amountOfItemsIncrement = 6;
 
 export class GalleryFilter extends Component {
   constructor() {
@@ -48,7 +48,7 @@ export class GalleryFilter extends Component {
   }
 
   onImagesLoaded(container, event) {
-    var images = container.getElementsByTagName("img");
+    var images = container.querySelectorAll(".progressive-img--loaded");
     var loaded = images.length;
     for (var i = 0; i < images.length; i++) {
       if (images[i].complete) {
@@ -85,9 +85,10 @@ export class GalleryFilter extends Component {
           //reached bottom of the page
 
           amountOfItems = amountOfItems + amountOfItemsIncrement;
+          
           this.setState({
             galleryItems: gallery_items.slice(0, amountOfItems)
-          });
+          });               
         }
     });
   }
