@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Card from './Card'
+import LabelCount from './LabelCount'
 import uuid from 'uuid'
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -139,18 +140,22 @@ export class GalleryFilter extends Component {
                 <div className="accordion__top__icon">–</div>
               </div>
             </div>
-            <div className="accordion__content">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={this.state.courses}
-                    onChange={this.handleChange('courses')}
-                    color='default'
-                    value="courses"
-                  />
-                }
-                label="Course taker"
-              />
+            <div className="accordion__content noscrollbar">
+              <div className='accordion__content__field'>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={this.state.courses}
+                      onChange={this.handleChange('courses')}
+                      color='default'
+                      value="courses"
+                    />
+                  }
+                  label="Course taker"
+                />
+                <LabelCount count={this.state.galleryItems.length} />
+              </div>
+
               <FormControlLabel
                 control={
                   <Checkbox
@@ -174,7 +179,7 @@ export class GalleryFilter extends Component {
                 <div className="accordion__top__icon">–</div>
               </div>
             </div>
-            <div className="accordion__content">
+            <div className="accordion__content noscrollbar">
               <FormControlLabel
                 control={
                   <Checkbox

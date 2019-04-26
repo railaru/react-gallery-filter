@@ -1,0 +1,129 @@
+$hover-transition: 200ms;
+
+//colour variables ==========================================================================
+$color-1:    #F8F9FA;
+$color-2:    #eff1f2;
+$color-3:    #fff;
+$color-4:    #5f6368;
+$color-5:    #4285f4;
+$color-6:    #80868b;
+$color-7:    #9aa0a6;
+$color-8:    #3c4043;
+$color-9:    rgba(0, 0, 0, 0);
+$color-10:   rgba(0, 0, 0, 0);
+$color-11:   rgba(0, 0, 0, 0);
+$color-12:   rgba(0, 0, 0, 0);
+$color-13:   rgba(0, 0, 0, 0);
+$color-14:   rgba(0, 0, 0, 0);
+$color-15:   rgba(0, 0, 0, 0);
+$color-16:   rgba(0, 0, 0, 0);
+$color-17:   rgba(0, 0, 0, 0);
+$color-18:   rgba(0, 0, 0, 0);
+$color-19:   rgba(0, 0, 0, 0);
+$color-20:   rgba(0, 0, 0, 0);
+
+//set background colour ==========================================================================
+.bg-1{ background: $color-1;}
+.bg-2{ background: $color-2;}
+.bg-3{ background: $color-3;}
+.bg-4{ background: $color-4;}
+.bg-5{ background: $color-5;}
+.bg-6{ background: $color-6;}
+.bg-7{ background: $color-7;}
+.bg-8{ background: $color-8;}
+.bg-9{ background: $color-9;}
+.bg-10{ background: $color-10;}
+.bg-11{ background: $color-11;}
+.bg-12{ background: $color-12;}
+.bg-13{ background: $color-13;}
+.bg-14{ background: $color-14;}
+.bg-15{ background: $color-15;}
+.bg-16{ background: $color-16;}
+.bg-17{ background: $color-17;}
+.bg-18{ background: $color-18;}
+.bg-19{ background: $color-19;}
+.bg-20{ background: $color-20;}
+
+//set text colour ==========================================================================
+.color-1{ color: $color-1; &::placeholder{ color: $color-1;}}
+.color-2{ color: $color-2; &::placeholder{ color: $color-2;}}
+.color-3{ color: $color-3; &::placeholder{ color: $color-3;}}
+.color-4{ color: $color-4; &::placeholder{ color: $color-4;}}
+.color-5{ color: $color-5; &::placeholder{ color: $color-5;}}
+.color-6{ color: $color-6; &::placeholder{ color: $color-6;}}
+.color-7{ color: $color-7; &::placeholder{ color: $color-7;}}
+.color-8{ color: $color-8; &::placeholder{ color: $color-8;}}
+.color-9{ color: $color-9; &::placeholder{ color: $color-9;}}
+.color-10{ color: $color-10; &::placeholder{ color: $color-10;}} 
+.color-11{ color: $color-11; &::placeholder{ color: $color-11;}}
+.color-12{ color: $color-12; &::placeholder{ color: $color-12;}}
+.color-13{ color: $color-13; &::placeholder{ color: $color-13;}}
+.color-14{ color: $color-14; &::placeholder{ color: $color-14;}}
+.color-15{ color: $color-15; &::placeholder{ color: $color-15;}}
+.color-16{ color: $color-16; &::placeholder{ color: $color-16;}}
+.color-17{ color: $color-17; &::placeholder{ color: $color-17;}}
+.color-18{ color: $color-18; &::placeholder{ color: $color-18;}}
+.color-19{ color: $color-19; &::placeholder{ color: $color-19;}}
+.color-20{ color: $color-20; &::placeholder{ color: $color-20;}}
+
+//change background colour on hover ==========================================================================
+
+@mixin hover-bg($color){
+    transition: $hover-transition;
+    &:hover{
+        transition: $hover-transition;
+        background: $color;
+    }
+}
+
+.hover-bg-1{ @include hover-bg($color-1);}
+.hover-bg-2{ @include hover-bg($color-2);}
+.hover-bg-3{ @include hover-bg($color-3);}
+.hover-bg-4{ @include hover-bg($color-4);}
+.hover-bg-5{ @include hover-bg($color-5);}
+.hover-bg-6{ @include hover-bg($color-6);}
+.hover-bg-7{ @include hover-bg($color-7);}
+.hover-bg-8{ @include hover-bg($color-8);}
+.hover-bg-9{ @include hover-bg($color-9);}
+.hover-bg-10{ @include hover-bg($color-10);}
+.hover-bg-11{ @include hover-bg($color-11);}
+.hover-bg-12{ @include hover-bg($color-12);}
+.hover-bg-13{ @include hover-bg($color-13);}
+.hover-bg-14{ @include hover-bg($color-14);}
+.hover-bg-15{ @include hover-bg($color-15);}
+.hover-bg-16{ @include hover-bg($color-16);}
+.hover-bg-17{ @include hover-bg($color-17);}
+.hover-bg-18{ @include hover-bg($color-18);}
+.hover-bg-19{ @include hover-bg($color-19);}
+.hover-bg-20{ @include hover-bg($color-20);}
+
+//change text colour on hover ==========================================================================
+
+@mixin hover-color($color){
+    transition: $hover-transition;
+    &:hover{
+        transition: $hover-transition;
+        color:      $color;
+    }
+}
+
+.hover-color-1{ @include hover-color($color-1);}
+.hover-color-2{ @include hover-color($color-2);}
+.hover-color-3{ @include hover-color($color-3);}
+.hover-color-4{ @include hover-color($color-4);}
+.hover-color-5{ @include hover-color($color-5);}
+.hover-color-6{ @include hover-color($color-6);}
+.hover-color-7{ @include hover-color($color-7);}
+.hover-color-8{ @include hover-color($color-8);}
+.hover-color-9{ @include hover-color($color-9);}
+.hover-color-10{ @include hover-color($color-10);}
+.hover-color-11{ @include hover-color($color-11);}
+.hover-color-12{ @include hover-color($color-12);}
+.hover-color-13{ @include hover-color($color-13);}
+.hover-color-14{ @include hover-color($color-14);}
+.hover-color-15{ @include hover-color($color-15);}
+.hover-color-16{ @include hover-color($color-16);}
+.hover-color-17{ @include hover-color($color-17);}
+.hover-color-18{ @include hover-color($color-18);}
+.hover-color-19{ @include hover-color($color-19);}
+.hover-color-20{ @include hover-color($color-20);}
