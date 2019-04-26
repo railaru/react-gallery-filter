@@ -1,9 +1,18 @@
 import React, { Component } from 'react'
 import Card from './Card'
+<<<<<<< HEAD
 import LabelCount from './LabelCount'
 import uuid from 'uuid'
+=======
+>>>>>>> 26dc93fb58a7806d27e14ffb8a7d5fd3f908dac1
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Loader from './Loader'
+
+import gallery_items from '../../gallery_items'
+
+let amountOfItems = 9
+const amountOfItemsIncrement = 6
 
 export class GalleryFilter extends Component {
 
@@ -11,96 +20,15 @@ export class GalleryFilter extends Component {
     super()
 
     this.state = {
+      isLoading: true,
       all: true,
       courses: false,
       video: false,
-      galleryItems: [
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'course',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-        {
-          id: uuid(),
-          link: 'http://google.com',
-          img: `https://source.unsplash.com/random/300x20${uuid()}`,
-          type: 'video',
-          title: 'Introduction to Machine Learning Problem Framing',
-          description: 'This one-hour course introduces the machine learning mindset and helps you identify appropriate situations for machine learning.',
-        },
-      ],
-
+      galleryItems: gallery_items.slice(0, amountOfItems)
     }
   }
 
-  componentDidMount() {
+  handleAccordions() {
     const accordionToggler = document.querySelectorAll('.accordion__top')
 
     accordionToggler.forEach((toggler) => {
@@ -119,14 +47,70 @@ export class GalleryFilter extends Component {
       }
     })
   }
-  
+
+
+  onImagesLoaded(container, event) {
+    var images = container.getElementsByTagName("img");
+    var loaded = images.length;
+    for (var i = 0; i < images.length; i++) {
+      if (images[i].complete) {
+        loaded--;
+      }
+      else {
+        // eslint-disable-next-line
+        images[i].onload = () => {
+          loaded--;
+          if (loaded === 0) {
+            event();
+          }
+        };
+      }
+      if (loaded === 0) {
+        event();
+      }
+    }
+  }
+
+
+  handleLazyLoad() {
+
+    this.onImagesLoaded(document.querySelector('.container'), () => {      
+      this.setState({ isLoading: false });
+    });
+
+    window.addEventListener("wheel", () => {
+
+      this.setState({ isLoading: true });
+      
+      this.onImagesLoaded(document.querySelector('.container'), () => {        
+        this.setState({ isLoading: false });
+      });      
+
+      if (!this.state.isLoading)
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) { //reached bottom of the page
+
+          amountOfItems = amountOfItems + amountOfItemsIncrement
+
+          this.setState({ galleryItems: gallery_items.slice(0, amountOfItems) });         
+        }
+
+    })
+  }
+
+  componentDidMount() {
+    this.handleAccordions()
+    this.handleLazyLoad()
+  }
+
+
+
   handleChange = name => event => {
     this.setState({ [name]: event.target.checked });
-    
-    this.setState({ all: false });    
+    this.setState({ all: false });
   };
 
   render() {
+
     return (
       <div className='gallery-filter'>
         <div className='gallery-filter__left'>
@@ -210,6 +194,7 @@ export class GalleryFilter extends Component {
             this.state.galleryItems.map(item => {
               if ((this.state.courses && item.type === 'course') || this.state.all) {
                 return (
+
                   <Card
                     key={item.id}
                     link={item.link}
@@ -217,9 +202,11 @@ export class GalleryFilter extends Component {
                     type={item.type}
                     title={item.title}
                     description={item.description}
+                    pose={this.state.courses ? 'visible' : 'hidden'}
                   />
                 )
               }
+
               if ((this.state.video && item.type === 'video') || this.state.all) {
                 return (
                   <Card
@@ -229,6 +216,7 @@ export class GalleryFilter extends Component {
                     type={item.type}
                     title={item.title}
                     description={item.description}
+                    pose={this.state.video ? 'visible' : 'hidden'}
                   />
                 )
               }
@@ -247,7 +235,13 @@ export class GalleryFilter extends Component {
 
               return null
             }
-            )}
+            )
+
+          }
+          {
+            this.state.isLoading &&
+              <Loader/>
+          }
         </div>
       </div>
     )

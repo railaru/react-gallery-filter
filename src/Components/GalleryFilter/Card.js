@@ -1,16 +1,12 @@
-import React, { Component } from 'react'
+    import React, { Component } from 'react'
 
 export class Card extends Component {
   render() {
     return (
-        <a href={this.props.link} className="card">
-        <div
-          className="card__img"
-          style={{
-            backgroundImage:
-              `url(${this.props.img})`
-          }}
-        />
+        <a href={this.props.link} className="card">        
+        <div className='card__img'>
+          <img src={this.props.img} alt='' />
+        </div>
         <div className="card__content">
           <div className="card__type">{this.props.type}</div>
           <div className="card__title">

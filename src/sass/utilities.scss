@@ -22,3 +22,47 @@
     height: 0;
   }
 }
+
+//animations
+
+$color-to-change-from: #B5AEAB;
+$color-to-change-to: #4285f4;
+$color-chage-animation-speed: 1.2s;
+$loading-dot-size: 8px;
+
+.animated-loading-dots-wrapper{
+  display: flex;
+  height: 100vh;
+}
+.animated-loading-dots {
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -40px;
+}
+
+.animated-loading-dots div {
+  width: $loading-dot-size;
+  height: $loading-dot-size;
+  margin-right: 3px;
+  border-radius: 100%;
+  display: inline-block;
+  animation: change-color-1 $color-chage-animation-speed infinite ease-in-out both;
+}
+
+.animated-loading-dots .dot1 {
+  animation-delay: -$color-chage-animation-speed / 4;
+}
+.animated-loading-dots .dot2 {
+  animation-delay: -$color-chage-animation-speed / 8;
+}
+
+
+@keyframes change-color-1 {
+  0%, 80%, 100% { 
+    background: $color-to-change-from;
+  } 40% { 
+    background: $color-to-change-to;
+  }
+}
