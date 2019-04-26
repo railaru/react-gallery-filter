@@ -1,5 +1,8 @@
 .container{
-    padding: 0 30px;
+    padding: 0 20px;
     margin: 0 auto;
     max-width: 1280px;
+    @media (min-width: $breakpoint-medium){
+        padding: 0 30px;
+    }
 }
